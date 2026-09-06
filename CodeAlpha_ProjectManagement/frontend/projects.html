@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — CodeAlpha Project Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgMain: '#080B14',
+            bgSurface: '#111827',
+            bgElevated: '#151B2D',
+            borderCol: '#27304A',
+            primaryBrand: '#6366F1',
+            primaryHover: '#818CF8',
+            textMain: '#F8FAFC',
+            textSub: '#CBD5E1',
+            textMuted: '#94A3B8'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#080B14] text-[#F8FAFC] min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <nav class="border-b border-[#27304A] bg-[#111827]/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 font-bold text-lg text-white">
+          <div class="w-8 h-8 rounded-lg bg-[#6366F1] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </div>
+          <span>Plan<span class="text-[#6366F1]">Flow</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Dashboard</a>
+          <a href="projects.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-[#151B2D] text-[#6366F1] border border-[#27304A]">Projects</a>
+          <a href="tasks.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Tasks</a>
+        </div>
+      </div>
+      <div id="nav-user-area" class="flex items-center gap-3"></div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight">Projects</h1>
+        <p class="text-sm text-[#94A3B8] mt-1">Manage team workspaces, sprints, and ongoing deliverables.</p>
+      </div>
+      <a href="create-project.html" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#6366F1] hover:bg-[#818CF8] text-white text-sm font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all">
+        <i data-lucide="plus" class="w-4 h-4"></i> Create Project
+      </a>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="flex flex-col sm:flex-row items-center gap-3 mb-6">
+      <div class="relative flex-1 w-full">
+        <i data-lucide="search" class="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="project-search" placeholder="Search projects by title or description..."
+          class="w-full pl-10 pr-4 py-2.5 bg-[#111827] border border-[#27304A] rounded-xl text-sm text-[#F8FAFC] placeholder-[#94A3B8] focus:outline-none focus:border-[#6366F1] transition-colors" />
+      </div>
+      <div class="w-full sm:w-48">
+        <select id="project-status-filter"
+          class="w-full px-3.5 py-2.5 bg-[#111827] border border-[#27304A] rounded-xl text-sm text-[#CBD5E1] focus:outline-none focus:border-[#6366F1] transition-colors">
+          <option value="All">All Statuses</option>
+          <option value="Active">Active</option>
+          <option value="Completed">Completed</option>
+          <option value="Archived">Archived</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Populated dynamically by projects.js -->
+    </div>
+  </main>
+
+  <footer class="border-t border-[#27304A] py-6 text-center text-xs text-[#94A3B8]">
+    <p>CodeAlpha Task 3 — Project Management Application | Developed by <span class="text-[#CBD5E1] font-medium">Md. Tanjimul Islam</span></p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/projects.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Projects.init();
+    });
+  </script>
+</body>
+</html>

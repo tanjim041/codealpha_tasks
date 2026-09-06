@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks — CodeAlpha Project Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgMain: '#080B14',
+            bgSurface: '#111827',
+            bgElevated: '#151B2D',
+            borderCol: '#27304A',
+            primaryBrand: '#6366F1',
+            primaryHover: '#818CF8',
+            textMain: '#F8FAFC',
+            textSub: '#CBD5E1',
+            textMuted: '#94A3B8'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#080B14] text-[#F8FAFC] min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <nav class="border-b border-[#27304A] bg-[#111827]/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 font-bold text-lg text-white">
+          <div class="w-8 h-8 rounded-lg bg-[#6366F1] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </div>
+          <span>Plan<span class="text-[#6366F1]">Flow</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Dashboard</a>
+          <a href="projects.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Projects</a>
+          <a href="tasks.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-[#151B2D] text-[#6366F1] border border-[#27304A]">Tasks</a>
+        </div>
+      </div>
+      <div id="nav-user-area" class="flex items-center gap-3"></div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight">Deliverables Directory</h1>
+        <p class="text-sm text-[#94A3B8] mt-1">Cross-project task tracking, milestones, and collaborative assignments.</p>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="flex flex-col sm:flex-row items-center gap-3 mb-6">
+      <div class="relative flex-1 w-full">
+        <i data-lucide="search" class="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="task-search-input" placeholder="Search tasks by title or project..."
+          class="w-full pl-10 pr-4 py-2.5 bg-[#111827] border border-[#27304A] rounded-xl text-xs text-[#F8FAFC] placeholder-[#94A3B8] focus:outline-none focus:border-[#6366F1] transition-colors" />
+      </div>
+
+      <div class="w-full sm:w-44">
+        <select id="task-status-filter"
+          class="w-full px-3.5 py-2.5 bg-[#111827] border border-[#27304A] rounded-xl text-xs text-[#CBD5E1] focus:outline-none focus:border-[#6366F1] transition-colors">
+          <option value="All">All Statuses</option>
+          <option value="Todo">Todo</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+
+      <div class="w-full sm:w-44">
+        <select id="task-priority-filter"
+          class="w-full px-3.5 py-2.5 bg-[#111827] border border-[#27304A] rounded-xl text-xs text-[#CBD5E1] focus:outline-none focus:border-[#6366F1] transition-colors">
+          <option value="All">All Priorities</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tasks Table Container -->
+    <div class="bg-[#111827] border border-[#27304A] rounded-2xl overflow-hidden shadow-xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-[#151B2D] border-b border-[#27304A] text-[11px] font-semibold uppercase tracking-wider text-[#94A3B8]">
+            <tr>
+              <th class="py-3.5 px-4">Task Deliverable</th>
+              <th class="py-3.5 px-4">Project</th>
+              <th class="py-3.5 px-4">Assignee</th>
+              <th class="py-3.5 px-4">Priority</th>
+              <th class="py-3.5 px-4">Status</th>
+              <th class="py-3.5 px-4">Due Date</th>
+              <th class="py-3.5 px-4 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-table-body" class="divide-y divide-[#27304A]/50">
+            <!-- Populated dynamically by tasks.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#27304A] py-6 text-center text-xs text-[#94A3B8]">
+    <p>CodeAlpha Task 3 — Project Management Application | Developed by <span class="text-[#CBD5E1] font-medium">Md. Tanjimul Islam</span></p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/tasks.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Tasks.init();
+    });
+  </script>
+</body>
+</html>

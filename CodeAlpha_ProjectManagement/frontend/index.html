@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — CodeAlpha Project Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgMain: '#080B14',
+            bgSurface: '#111827',
+            bgElevated: '#151B2D',
+            borderCol: '#27304A',
+            primaryBrand: '#6366F1',
+            primaryHover: '#818CF8',
+            textMain: '#F8FAFC',
+            textSub: '#CBD5E1',
+            textMuted: '#94A3B8'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#080B14] text-[#F8FAFC] min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <nav class="border-b border-[#27304A] bg-[#111827]/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 font-bold text-lg text-white">
+          <div class="w-8 h-8 rounded-lg bg-[#6366F1] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </div>
+          <span>Plan<span class="text-[#6366F1]">Flow</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-[#151B2D] text-[#6366F1] border border-[#27304A]">Dashboard</a>
+          <a href="projects.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Projects</a>
+          <a href="tasks.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Tasks</a>
+        </div>
+      </div>
+      <div id="nav-user-area" class="flex items-center gap-3"></div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#F8FAFC] tracking-tight">Executive Workspace</h1>
+        <p class="text-sm text-[#94A3B8] mt-1">Cross-project deliverables, milestones, and sprint telemetry.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="create-project.html" class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#6366F1] hover:bg-[#818CF8] text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all">
+          <i data-lucide="plus" class="w-4 h-4"></i> New Workspace
+        </a>
+      </div>
+    </div>
+
+    <!-- Metric Cards Grid (6 Stats) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <!-- Total Projects -->
+      <div class="p-4 rounded-2xl bg-[#111827] border border-[#27304A]">
+        <div class="flex items-center justify-between text-[#94A3B8] mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider">Total Projects</span>
+          <i data-lucide="folder" class="w-4 h-4 text-[#6366F1]"></i>
+        </div>
+        <h3 id="stat-total-projects" class="text-2xl font-bold text-[#F8FAFC]">0</h3>
+      </div>
+
+      <!-- Active Projects -->
+      <div class="p-4 rounded-2xl bg-[#111827] border border-[#27304A]">
+        <div class="flex items-center justify-between text-[#94A3B8] mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider">Active</span>
+          <i data-lucide="activity" class="w-4 h-4 text-[#6366F1]"></i>
+        </div>
+        <h3 id="stat-active-projects" class="text-2xl font-bold text-[#6366F1]">0</h3>
+      </div>
+
+      <!-- Completed Projects -->
+      <div class="p-4 rounded-2xl bg-[#111827] border border-[#27304A]">
+        <div class="flex items-center justify-between text-[#94A3B8] mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider">Completed</span>
+          <i data-lucide="check-circle" class="w-4 h-4 text-[#34D399]"></i>
+        </div>
+        <h3 id="stat-completed-projects" class="text-2xl font-bold text-[#34D399]">0</h3>
+      </div>
+
+      <!-- Total Tasks -->
+      <div class="p-4 rounded-2xl bg-[#111827] border border-[#27304A]">
+        <div class="flex items-center justify-between text-[#94A3B8] mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider">Total Tasks</span>
+          <i data-lucide="list-todo" class="w-4 h-4 text-[#CBD5E1]"></i>
+        </div>
+        <h3 id="stat-total-tasks" class="text-2xl font-bold text-[#F8FAFC]">0</h3>
+      </div>
+
+      <!-- In Progress Tasks -->
+      <div class="p-4 rounded-2xl bg-[#111827] border border-[#27304A]">
+        <div class="flex items-center justify-between text-[#94A3B8] mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider">In Progress</span>
+          <i data-lucide="clock" class="w-4 h-4 text-[#FBBF24]"></i>
+        </div>
+        <h3 id="stat-inprogress-tasks" class="text-2xl font-bold text-[#FBBF24]">0</h3>
+      </div>
+
+      <!-- Completed Tasks -->
+      <div class="p-4 rounded-2xl bg-[#111827] border border-[#27304A]">
+        <div class="flex items-center justify-between text-[#94A3B8] mb-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider">Done</span>
+          <i data-lucide="award" class="w-4 h-4 text-[#34D399]"></i>
+        </div>
+        <h3 id="stat-completed-tasks" class="text-2xl font-bold text-[#34D399]">0</h3>
+      </div>
+    </div>
+
+    <!-- Content Columns -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Recent Workspaces -->
+      <div class="lg:col-span-2 bg-[#111827] border border-[#27304A] rounded-2xl p-6 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
+            <i data-lucide="folder" class="w-4 h-4 text-[#6366F1]"></i> Active Workspaces
+          </h2>
+          <a href="projects.html" class="text-xs text-[#6366F1] hover:text-[#818CF8] font-semibold transition-colors">View All</a>
+        </div>
+        <div id="dashboard-recent-projects" class="space-y-3">
+          <!-- Dynamic Project Cards -->
+        </div>
+      </div>
+
+      <!-- Upcoming / Assigned Deliverables -->
+      <div class="bg-[#111827] border border-[#27304A] rounded-2xl p-6 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4 text-[#6366F1]"></i> Assigned Deliverables
+          </h2>
+          <a href="tasks.html" class="text-xs text-[#6366F1] hover:text-[#818CF8] font-semibold transition-colors">Directory</a>
+        </div>
+        <div id="dashboard-upcoming-tasks" class="space-y-3">
+          <!-- Dynamic Task Cards -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#27304A] py-6 text-center text-xs text-[#94A3B8]">
+    <p>CodeAlpha Task 3 — Project Management Application | Developed by <span class="text-[#CBD5E1] font-medium">Md. Tanjimul Islam</span></p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      Auth.requireAuth();
+      UI.setupNavbar();
+      UI.initIcons();
+
+      try {
+        const [projRes, taskRes] = await Promise.all([
+          API.get('/projects'),
+          API.get('/tasks')
+        ]);
+
+        const projects = projRes.projects || [];
+        const tasks = taskRes.tasks || [];
+
+        // Compute metrics
+        const totalProjects = projects.length;
+        const activeProjects = projects.filter(p => p.status === 'Active').length;
+        const completedProjects = projects.filter(p => p.status === 'Completed').length;
+
+        const totalTasks = tasks.length;
+        const inProgressTasks = tasks.filter(t => t.status === 'In Progress').length;
+        const completedTasks = tasks.filter(t => t.status === 'Completed').length;
+
+        document.getElementById('stat-total-projects').textContent = totalProjects;
+        document.getElementById('stat-active-projects').textContent = activeProjects;
+        document.getElementById('stat-completed-projects').textContent = completedProjects;
+
+        document.getElementById('stat-total-tasks').textContent = totalTasks;
+        document.getElementById('stat-inprogress-tasks').textContent = inProgressTasks;
+        document.getElementById('stat-completed-tasks').textContent = completedTasks;
+
+        // Render Recent Projects
+        const projContainer = document.getElementById('dashboard-recent-projects');
+        if (projects.length === 0) {
+          projContainer.innerHTML = `
+            <div class="py-8 text-center text-xs text-[#94A3B8] border border-dashed border-[#27304A] rounded-xl">
+              No workspaces found. <a href="create-project.html" class="text-[#6366F1] font-semibold">Create one</a>
+            </div>
+          `;
+        } else {
+          projContainer.innerHTML = projects.slice(0, 4).map(p => {
+            const statusBadge = p.status === 'Active' ? 'badge-in-progress' :
+                                p.status === 'Completed' ? 'badge-completed' : 'badge-low';
+            const progress = p.progress_percentage || 0;
+
+            return `
+              <div class="p-4 rounded-xl bg-[#151B2D] border border-[#27304A] hover:border-[#6366F1]/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${statusBadge}">${p.status}</span>
+                    <span class="text-[10px] text-[#94A3B8] flex items-center gap-1">
+                      <i data-lucide="users" class="w-3 h-3 text-[#6366F1]"></i> ${p.total_members_count || 1}
+                    </span>
+                  </div>
+                  <a href="project-details.html?id=${p.id}" class="font-bold text-sm text-[#F8FAFC] group-hover:text-[#818CF8] transition-colors">${p.name}</a>
+                  <p class="text-xs text-[#94A3B8] mt-0.5 line-clamp-1">${p.description || 'No description'}</p>
+                  
+                  <div class="mt-2.5 max-w-xs">
+                    <div class="w-full bg-[#111827] h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-gradient-to-r from-[#6366F1] to-[#34D399] h-full rounded-full" style="width: ${progress}%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center sm:flex-col sm:items-end justify-between text-xs text-[#94A3B8]">
+                  <span class="text-[10px]">${p.completed_tasks || 0}/${p.total_tasks || 0} done</span>
+                  <a href="project-details.html?id=${p.id}" class="mt-1 px-3 py-1 bg-[#111827] hover:bg-[#1E293B] text-[#6366F1] hover:text-[#818CF8] rounded-lg border border-[#27304A] text-xs font-semibold transition-colors">
+                    Workspace
+                  </a>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Render Recent Tasks
+        const taskContainer = document.getElementById('dashboard-upcoming-tasks');
+        if (tasks.length === 0) {
+          taskContainer.innerHTML = `
+            <div class="py-8 text-center text-xs text-[#94A3B8] border border-dashed border-[#27304A] rounded-xl">
+              No deliverables assigned.
+            </div>
+          `;
+        } else {
+          taskContainer.innerHTML = tasks.slice(0, 5).map(t => {
+            const priorityClass = t.priority === 'High' ? 'badge-high' :
+                                  t.priority === 'Medium' ? 'badge-medium' : 'badge-low';
+            const statusClass = t.status === 'Completed' ? 'badge-completed' :
+                                t.status === 'In Progress' ? 'badge-in-progress' : 'badge-todo';
+
+            return `
+              <div class="p-3.5 rounded-xl bg-[#151B2D] border border-[#27304A] hover:border-[#6366F1]/40 transition-all cursor-pointer" onclick="UI.openTaskModal(${t.id}, () => window.location.reload())">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${priorityClass}">${t.priority}</span>
+                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${statusClass}">${t.status}</span>
+                </div>
+                <h4 class="font-semibold text-xs text-[#F8FAFC] leading-snug">${t.title}</h4>
+                <div class="flex items-center justify-between text-[10px] text-[#94A3B8] mt-2">
+                  <span class="truncate max-w-[120px]">${t.project_name}</span>
+                  <span>${UI.formatDate(t.due_date)}</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        UI.initIcons();
+      } catch (err) {
+        console.error('Dashboard load error:', err);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -10,6 +10,9 @@ Simple full-stack e-commerce application.
 ### CodeAlpha SocialMedia
 Full-stack social media platform.
 
+### CodeAlpha ProjectManagement
+Collaborative project management application with workspace telemetry, task lifecycles, and team discussions.
+
 ## Technology Stack
 
 The projects use modern full-stack web technologies:
@@ -29,6 +32,11 @@ codealpha_tasks/
 │   └── README.md
 │
 ├── CodeAlpha_SocialMedia/
+│   ├── frontend/
+│   ├── backend/
+│   └── README.md
+│
+├── CodeAlpha_ProjectManagement/
 │   ├── frontend/
 │   ├── backend/
 │   └── README.md

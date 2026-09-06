@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile — CodeAlpha Project Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgMain: '#080B14',
+            bgSurface: '#111827',
+            bgElevated: '#151B2D',
+            borderCol: '#27304A',
+            primaryBrand: '#6366F1',
+            primaryHover: '#818CF8',
+            textMain: '#F8FAFC',
+            textSub: '#CBD5E1',
+            textMuted: '#94A3B8'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#080B14] text-[#F8FAFC] min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <nav class="border-b border-[#27304A] bg-[#111827]/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 font-bold text-lg text-white">
+          <div class="w-8 h-8 rounded-lg bg-[#6366F1] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </div>
+          <span>Plan<span class="text-[#6366F1]">Flow</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Dashboard</a>
+          <a href="projects.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Projects</a>
+          <a href="tasks.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Tasks</a>
+        </div>
+      </div>
+      <div id="nav-user-area" class="flex items-center gap-3"></div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Profile Card Header -->
+    <div class="bg-[#111827] border border-[#27304A] rounded-2xl p-6 sm:p-8 mb-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 shadow-xl">
+      <img id="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80"
+        alt="Profile Avatar" class="w-24 h-24 rounded-2xl border-2 border-[#6366F1]/50 object-cover shadow-lg shadow-indigo-500/10" />
+      <div class="text-center sm:text-left flex-1">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+          <h1 id="profile-name" class="text-2xl font-bold text-[#F8FAFC]">Md. Tanjimul Islam</h1>
+          <span id="profile-role-badge" class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#6366F1]/20 text-[#818CF8] border border-[#6366F1]/40">Admin</span>
+        </div>
+        <p id="profile-username" class="text-xs text-[#6366F1] font-medium">@tanjimul</p>
+        <p id="profile-email" class="text-xs text-[#94A3B8] mt-1">demo@codealpha.com</p>
+
+        <!-- Profile Metric Pills -->
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 mt-4 pt-4 border-t border-[#27304A]/60 text-xs">
+          <div>
+            <span class="text-[#94A3B8]">Workspaces: </span>
+            <strong id="user-stat-projects" class="text-[#F8FAFC]">0</strong>
+          </div>
+          <div>
+            <span class="text-[#94A3B8]">Assigned Tasks: </span>
+            <strong id="user-stat-assigned" class="text-[#6366F1]">0</strong>
+          </div>
+          <div>
+            <span class="text-[#94A3B8]">Completed: </span>
+            <strong id="user-stat-completed" class="text-[#34D399]">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex sm:flex-col gap-2">
+        <button id="open-edit-profile-btn" class="px-4 py-2 bg-[#151B2D] hover:bg-[#1E293B] text-[#CBD5E1] hover:text-[#F8FAFC] border border-[#27304A] rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5 text-[#6366F1]"></i> Edit Profile
+        </button>
+        <button onclick="Auth.logout()" class="px-4 py-2 bg-[#FB7185]/10 hover:bg-[#FB7185]/20 text-[#FB7185] border border-[#FB7185]/30 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Sign Out
+        </button>
+      </div>
+    </div>
+
+    <!-- 2 Column Layout: Projects & Assigned Tasks -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Projects Associated -->
+      <div class="bg-[#111827] border border-[#27304A] rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
+            <i data-lucide="folder" class="w-4 h-4 text-[#6366F1]"></i> My Workspaces
+          </h3>
+          <a href="create-project.html" class="text-xs text-[#6366F1] hover:text-[#818CF8] font-medium">+ New</a>
+        </div>
+        <div id="user-projects-list" class="space-y-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Assigned Tasks -->
+      <div class="bg-[#111827] border border-[#27304A] rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4 text-[#34D399]"></i> Assigned Deliverables
+          </h3>
+          <a href="tasks.html" class="text-xs text-[#6366F1] hover:text-[#818CF8] font-medium">View All</a>
+        </div>
+        <div id="user-tasks-list" class="space-y-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Edit Profile Modal -->
+  <div id="edit-profile-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-[#111827] border border-[#27304A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-fadeIn">
+      <div class="p-6 border-b border-[#27304A] flex items-center justify-between">
+        <h3 class="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
+          <i data-lucide="user" class="w-5 h-5 text-[#6366F1]"></i> Edit Profile Details
+        </h3>
+        <button id="close-edit-profile-modal" class="text-[#94A3B8] hover:text-[#F8FAFC] p-1.5 rounded-lg hover:bg-[#151B2D]">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="edit-profile-form" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5">Full Name *</label>
+          <input type="text" id="edit-name-input" required
+            class="w-full px-4 py-2.5 bg-[#151B2D] border border-[#27304A] rounded-xl text-xs text-[#F8FAFC] focus:outline-none focus:border-[#6366F1]" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5">Avatar Image URL</label>
+          <input type="url" id="edit-avatar-input" placeholder="https://..."
+            class="w-full px-4 py-2.5 bg-[#151B2D] border border-[#27304A] rounded-xl text-xs text-[#F8FAFC] focus:outline-none focus:border-[#6366F1]" />
+        </div>
+
+        <div class="pt-4 border-t border-[#27304A] flex items-center justify-end gap-3">
+          <button type="button" id="cancel-edit-profile-btn" class="px-4 py-2 text-xs font-medium text-[#CBD5E1] hover:bg-[#151B2D] rounded-xl">Cancel</button>
+          <button type="submit" id="submit-edit-profile-btn" class="px-5 py-2 bg-[#6366F1] hover:bg-[#818CF8] text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-500/20">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-[#27304A] py-6 text-center text-xs text-[#94A3B8]">
+    <p>CodeAlpha Task 3 — Project Management Application | Developed by <span class="text-[#CBD5E1] font-medium">Md. Tanjimul Islam</span></p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/profile.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Profile.init();
+    });
+  </script>
+</body>
+</html>
