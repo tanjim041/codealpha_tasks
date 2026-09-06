@@ -1,0 +1,169 @@
+/* ==========================================================================
+   CodeAlpha Social Media Platform - Dark-First Design System
+   Developer: Md. Tanjimul Islam
+   ========================================================================== */
+
+:root {
+  --background: #080B14;
+  --background-secondary: #0B1020;
+  --surface: #111827;
+  --surface-elevated: #151B2D;
+  --surface-hover: #1B2438;
+  --border: #27304A;
+  --border-subtle: #1E293B;
+  --foreground: #F8FAFC;
+  --foreground-secondary: #CBD5E1;
+  --muted: #94A3B8;
+  --primary: #6366F1;
+  --primary-hover: #818CF8;
+  --primary-soft: rgba(99, 102, 241, 0.12);
+  --success: #34D399;
+  --warning: #FBBF24;
+  --error: #FB7185;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Keyframe Animations & Micro-Interactions
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmerDark {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes likePop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-like-pop {
+  animation: likePop 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Dark Skeleton Loading Shimmer */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #111827 25%, #1E293B 50%, #111827 75%);
+  background-size: 200% 100%;
+  animation: shimmerDark 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   Post Card Subtle Elevation & Hover
+   ========================================================================== */
+.post-card {
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  border-color: #3b4870;
+}
+
+/* ==========================================================================
+   Button Micro-Interactions (shadcn-inspired)
+   ========================================================================== */
+.btn-press {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-press:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   Dark Toast Notification
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background-color: var(--surface-elevated);
+  color: var(--foreground);
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  font-size: 0.88rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--border);
+}
+
+.toast.success {
+  border-left: 4px solid var(--success);
+}
+
+.toast.error {
+  border-left: 4px solid var(--error);
+}
+
+/* ==========================================================================
+   Reduced Motion (Accessibility)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-like-pop, .btn-press:active {
+    transform: none !important;
+  }
+}

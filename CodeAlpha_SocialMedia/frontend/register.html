@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#080B14] text-[#F8FAFC]">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account - CodeAlpha Social Media</title>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-full flex flex-col bg-[#080B14] text-[#F8FAFC] antialiased">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B1020]/90 border-b border-[#27304A] transition-shadow">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-950 group-hover:bg-indigo-500 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <span class="font-extrabold text-lg tracking-tight text-[#F8FAFC] group-hover:text-indigo-400 transition-colors">
+            CodeAlpha<span class="text-indigo-400">.</span>
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="text-sm font-medium px-3 py-1.5 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Feed</a>
+        </nav>
+      </div>
+
+      <div id="nav-auth-container" class="flex items-center gap-2"></div>
+    </div>
+  </header>
+
+  <!-- Register Form Container -->
+  <main class="max-w-md mx-auto px-4 py-16 flex-1 w-full flex items-center justify-center">
+    <div class="w-full bg-[#111827] rounded-2xl border border-[#27304A] shadow-xl p-8 animate-fade-in-up">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-extrabold text-[#F8FAFC] tracking-tight mb-2">Create Account</h1>
+        <p class="text-xs text-[#94A3B8]">Join the developer social network to share posts, follow peers, and discuss tech.</p>
+      </div>
+
+      <div id="auth-alert" style="display: none;" class="p-3.5 rounded-lg border border-rose-800/60 bg-rose-950/50 text-rose-300 text-xs font-medium mb-5"></div>
+
+      <form id="register-form" onsubmit="handleRegister(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5" for="reg-name">Full Name</label>
+          <input 
+            type="text" 
+            id="reg-name" 
+            placeholder="e.g. Jordan Hayes" 
+            required 
+            autocomplete="name"
+            class="w-full px-3.5 py-2.5 rounded-lg border border-[#27304A] bg-[#0B1020] focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 outline-none text-sm text-[#F8FAFC] placeholder-[#94A3B8]/60 transition-all"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5" for="reg-username">Username</label>
+          <input 
+            type="text" 
+            id="reg-username" 
+            placeholder="e.g. jhayes_dev" 
+            required 
+            autocomplete="username"
+            class="w-full px-3.5 py-2.5 rounded-lg border border-[#27304A] bg-[#0B1020] focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 outline-none text-sm text-[#F8FAFC] placeholder-[#94A3B8]/60 transition-all"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5" for="reg-email">Email Address</label>
+          <input 
+            type="email" 
+            id="reg-email" 
+            placeholder="jordan@example.com" 
+            required 
+            autocomplete="email"
+            class="w-full px-3.5 py-2.5 rounded-lg border border-[#27304A] bg-[#0B1020] focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 outline-none text-sm text-[#F8FAFC] placeholder-[#94A3B8]/60 transition-all"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5" for="reg-password">Password</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="reg-password" 
+              placeholder="Minimum 6 characters" 
+              required 
+              minlength="6"
+              autocomplete="new-password"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-lg border border-[#27304A] bg-[#0B1020] focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 outline-none text-sm text-[#F8FAFC] placeholder-[#94A3B8]/60 transition-all"
+            />
+            <button 
+              type="button" 
+              onclick="togglePasswordVisibility('reg-password', this)" 
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+              title="Toggle password visibility"
+            >
+              <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#CBD5E1] uppercase tracking-wider mb-1.5" for="reg-confirm-password">Confirm Password</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="reg-confirm-password" 
+              placeholder="Re-enter password" 
+              required 
+              minlength="6"
+              autocomplete="new-password"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-lg border border-[#27304A] bg-[#0B1020] focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 outline-none text-sm text-[#F8FAFC] placeholder-[#94A3B8]/60 transition-all"
+            />
+            <button 
+              type="button" 
+              onclick="togglePasswordVisibility('reg-confirm-password', this)" 
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+              title="Toggle password visibility"
+            >
+              <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+        </div>
+
+        <button 
+          type="submit" 
+          id="reg-btn" 
+          class="btn-press w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl shadow-sm transition-colors mt-2"
+        >
+          Create Account
+        </button>
+      </form>
+
+      <div class="text-center text-xs text-[#94A3B8] mt-6 pt-4 border-t border-[#1E293B]">
+        Already have an account? <a href="login.html" class="text-indigo-400 font-semibold hover:text-indigo-300">Sign in here</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#0B1020] border-t border-[#27304A] py-8 text-center text-xs text-[#94A3B8] mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <p>&copy; 2026 CodeAlpha Full Stack Development Internship &bull; Task 2: Social Media Platform by Md. Tanjimul Islam</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (isAuthenticated()) {
+        window.location.href = 'index.html';
+      }
+    });
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const confirmPassword = document.getElementById('reg-confirm-password').value;
+      const btn = document.getElementById('reg-btn');
+      const alertBox = document.getElementById('auth-alert');
+
+      alertBox.style.display = 'none';
+
+      if (password !== confirmPassword) {
+        alertBox.textContent = 'Passwords do not match.';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      if (password.length < 6) {
+        alertBox.textContent = 'Password must be at least 6 characters long.';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+
+      try {
+        const res = await apiRequest('/auth/register', {
+          method: 'POST',
+          body: { name, username, email, password }
+        });
+
+        if (res.success && res.token) {
+          saveAuth(res.token, res.user);
+          showToast(`Welcome to CodeAlpha, ${res.user.name}!`);
+
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 350);
+        }
+      } catch (err) {
+        alertBox.textContent = err.message || 'Registration failed.';
+        alertBox.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#080B14] text-[#F8FAFC]">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Details - CodeAlpha Social Media</title>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-full flex flex-col bg-[#080B14] text-[#F8FAFC] antialiased">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B1020]/90 border-b border-[#27304A] transition-shadow">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-950 group-hover:bg-indigo-500 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <span class="font-extrabold text-lg tracking-tight text-[#F8FAFC] group-hover:text-indigo-400 transition-colors">
+            CodeAlpha<span class="text-indigo-400">.</span>
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="text-sm font-medium px-3 py-1.5 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">Feed</a>
+          <a href="create-post.html" class="text-sm font-medium px-3 py-1.5 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">New Post</a>
+        </nav>
+      </div>
+
+      <div id="nav-auth-container" class="flex items-center gap-2"></div>
+    </div>
+  </header>
+
+  <!-- Post Details Container -->
+  <main class="max-w-2xl mx-auto px-4 py-8 flex-1 w-full animate-fade-in-up">
+    <div class="mb-6">
+      <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Feed
+      </a>
+    </div>
+
+    <!-- Post Content Card -->
+    <div id="post-details-container">
+      <!-- Loaded via loadPostDetailsPage() -->
+    </div>
+
+    <!-- Comments Section -->
+    <section class="mt-8">
+      <div class="flex items-center justify-between pb-3 border-b border-[#1E293B] mb-5">
+        <h3 class="text-base font-bold text-[#F8FAFC]">
+          Comments (<span id="comments-heading-count">0</span>)
+        </h3>
+      </div>
+
+      <!-- Add Comment Form -->
+      <div class="bg-[#111827] rounded-2xl border border-[#27304A] p-4 sm:p-5 mb-6 shadow-sm">
+        <form onsubmit="handleAddCommentSubmit(event)">
+          <textarea 
+            id="comment-input" 
+            rows="2" 
+            placeholder="Write a constructive comment..." 
+            class="w-full p-3 text-xs sm:text-sm bg-[#0B1020] border border-[#27304A] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all text-[#F8FAFC] placeholder-[#94A3B8]/60 resize-none mb-3"
+            maxlength="1000"
+            required
+          ></textarea>
+          <div class="flex justify-end">
+            <button 
+              type="submit" 
+              id="comment-submit-btn" 
+              class="btn-press px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-lg shadow-sm transition-colors"
+            >
+              Post Comment
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Comments Stream -->
+      <div id="comments-list" class="space-y-3">
+        <!-- Loaded via loadComments() -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#0B1020] border-t border-[#27304A] py-8 text-center text-xs text-[#94A3B8] mt-auto">
+    <div class="max-w-4xl mx-auto px-4">
+      <p>&copy; 2026 CodeAlpha Full Stack Development Internship &bull; Task 2: Social Media Platform by Md. Tanjimul Islam</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/post.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPostDetailsPage();
+    });
+  </script>
+</body>
+</html>

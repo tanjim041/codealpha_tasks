@@ -1,0 +1,28 @@
+{
+  "name": "codealpha-socialmedia-backend",
+  "version": "1.0.0",
+  "description": "CodeAlpha Full Stack Development Task 2 - Social Media Platform Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node seed.js",
+    "test": "node test_api.js"
+  },
+  "keywords": [
+    "codealpha",
+    "social-media",
+    "express",
+    "sqlite",
+    "jwt"
+  ],
+  "author": "Md. Tanjimul Islam",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

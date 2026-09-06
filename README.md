@@ -12,9 +12,11 @@ Full-stack social media platform.
 
 ## Technology Stack
 
-The projects use modern frontend and backend technologies:
-- **Frontend**: React / Vite
-- **Backend**: Python / FastAPI
+The projects use modern full-stack web technologies:
+- **Frontend**: HTML5, Vanilla JavaScript (ES6+), Tailwind CSS
+- **Backend**: Node.js, Express.js
+- **Database**: SQLite (WAL mode, foreign key enforcement)
+- **Authentication**: JWT (JSON Web Tokens) & bcryptjs
 
 ## Repository Structure
 

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#080B14] text-[#F8FAFC]">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feed - CodeAlpha Social Media</title>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-full flex flex-col bg-[#080B14] text-[#F8FAFC] antialiased">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B1020]/90 border-b border-[#27304A] transition-shadow">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-950 group-hover:bg-indigo-500 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <span class="font-extrabold text-lg tracking-tight text-[#F8FAFC] group-hover:text-indigo-400 transition-colors">
+            CodeAlpha<span class="text-indigo-400">.</span>
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="text-sm font-semibold px-3 py-1.5 rounded-lg text-indigo-400 bg-indigo-950/70 border border-indigo-700/40">Feed</a>
+          <a href="create-post.html" class="text-sm font-medium px-3 py-1.5 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#151B2D] transition-colors">New Post</a>
+        </nav>
+      </div>
+
+      <!-- Search & Auth -->
+      <div class="flex items-center gap-3">
+        <form onsubmit="handleFeedSearch(event)" class="relative hidden sm:block w-48 lg:w-64">
+          <svg class="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            id="feed-search-input" 
+            placeholder="Search feed..." 
+            class="w-full pl-8 pr-3 py-1.5 text-xs bg-[#0B1020] border border-[#27304A] rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all text-[#F8FAFC] placeholder-[#94A3B8]"
+          />
+        </form>
+
+        <div id="nav-auth-container" class="flex items-center gap-2"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Feed Container -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left / Center: Post Stream (8 cols) -->
+      <div class="lg:col-span-8">
+        
+        <!-- Inline Quick Create Post Widget -->
+        <div class="bg-[#111827] rounded-2xl border border-[#27304A] p-5 sm:p-6 mb-6 shadow-md animate-fade-in-up">
+          <h2 class="text-sm font-bold text-[#F8FAFC] mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+            Share an update
+          </h2>
+          <form onsubmit="handleQuickPostSubmit(event)">
+            <textarea 
+              id="quick-post-content" 
+              rows="3" 
+              placeholder="What's happening in tech or software engineering today?" 
+              class="w-full p-3 text-sm bg-[#0B1020] border border-[#27304A] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all text-[#F8FAFC] placeholder-[#94A3B8]/70 resize-none mb-3"
+              maxlength="2000"
+            ></textarea>
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="relative flex-1">
+                <input 
+                  type="url" 
+                  id="quick-post-image" 
+                  placeholder="Optional image URL (https://...)" 
+                  class="w-full px-3 py-1.5 text-xs bg-[#0B1020] border border-[#27304A] rounded-lg focus:outline-none focus:border-indigo-500 text-[#F8FAFC] placeholder-[#94A3B8]/60"
+                />
+              </div>
+              <button 
+                type="submit" 
+                id="quick-post-btn"
+                class="btn-press px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white shadow-sm transition-colors"
+              >
+                Publish Post
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Feed Filter Tabs -->
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#1E293B]">
+          <div class="flex items-center gap-2">
+            <button 
+              id="tab-feed-all" 
+              onclick="setFeedTab('all')" 
+              class="btn-press px-4 py-1.5 rounded-lg text-xs font-semibold border text-indigo-400 bg-indigo-950/70 border-indigo-700/50"
+            >
+              All Posts
+            </button>
+            <button 
+              id="tab-feed-following" 
+              onclick="setFeedTab('following')" 
+              class="btn-press px-4 py-1.5 rounded-lg text-xs font-semibold border text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#151B2D] border-transparent"
+            >
+              Following
+            </button>
+          </div>
+          <span class="text-xs text-[#94A3B8] hidden sm:inline">Server-side paginated stream</span>
+        </div>
+
+        <!-- Posts Stream -->
+        <div id="posts-stream">
+          <!-- Loaded via loadFeed() -->
+        </div>
+
+        <!-- Pagination Controller -->
+        <div id="pagination-container"></div>
+      </div>
+
+      <!-- Right Sidebar (4 cols) -->
+      <aside class="hidden lg:block lg:col-span-4 space-y-6">
+        <!-- Platform Intro Widget -->
+        <div class="bg-[#111827] rounded-2xl border border-[#27304A] p-5 shadow-sm">
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-indigo-950/80 border border-indigo-700/50 text-indigo-300 text-[11px] font-semibold mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Task 2 Active
+          </div>
+          <h3 class="text-sm font-bold text-[#F8FAFC] mb-1.5">CodeAlpha Social Platform</h3>
+          <p class="text-xs text-[#94A3B8] leading-relaxed mb-3">
+            A developer-focused social network with profiles, posts, comments, likes, and follower networks built on SQLite.
+          </p>
+          <div class="pt-3 border-t border-[#1E293B] text-[11px] text-[#94A3B8]">
+            Author: <span class="text-[#F8FAFC] font-semibold">Md. Tanjimul Islam</span>
+          </div>
+        </div>
+
+        <!-- Who to Follow Widget -->
+        <div class="bg-[#111827] rounded-2xl border border-[#27304A] p-5 shadow-sm">
+          <h3 class="text-sm font-bold text-[#F8FAFC] mb-3">Suggested Creators</h3>
+          <div id="sidebar-suggestions" class="divide-y divide-[#1E293B]">
+            <!-- Loaded via loadSidebarSuggestions() -->
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#0B1020] border-t border-[#27304A] py-8 text-center text-xs text-[#94A3B8] mt-auto">
+    <div class="max-w-6xl mx-auto px-4">
+      <p>&copy; 2026 CodeAlpha Full Stack Development Internship &bull; Task 2: Social Media Platform by Md. Tanjimul Islam</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/feed.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFeed(true);
+      loadSidebarSuggestions();
+    });
+  </script>
+</body>
+</html>
